@@ -24,7 +24,7 @@ jobs:
       - name: Build Next.js app
         run: yarn build
         env:
-          URL_PREFIX: molcal
+          URL_PREFIX: mol-cal
 
       - name: Export Next.js app
         run: yarn export
