@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Link from 'next/link';
 
 import { Textbox } from '@/components/textbox';
 import { WeighingTable } from '@/components/table';
@@ -12,6 +11,7 @@ const Calc = () => {
 
   return (
     <div>
+      <h2 className="py-4 text-xl font-bold">準結晶</h2>
       <div className="py-2">
         <Textbox value={f} onChange={(e) => setF(e.target.value)}>
           分子式
@@ -28,11 +28,6 @@ const Calc = () => {
       </div>
       <div className="py-4">
         <WeighingTable data={weight} />
-      </div>
-      <div className="pt-16">
-        <Link href="/quasicrystal">
-          <a>準結晶</a>
-        </Link>
       </div>
     </div>
   );

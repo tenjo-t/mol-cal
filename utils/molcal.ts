@@ -40,3 +40,14 @@ export function calcWeight(atomWeight: AtomRate) {
 
   return result;
 }
+
+export function parseEquation(equation: string) {
+  const [reaStr, proStr] = equation.split('->');
+  const reactant = reaStr.split('+');
+  const product = proStr.split('+');
+
+  return {
+    reactant,
+    product,
+  };
+}
