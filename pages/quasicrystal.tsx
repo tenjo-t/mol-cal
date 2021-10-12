@@ -1,36 +1,16 @@
-import { useState } from 'react';
+import { Calc } from '@/components//calc';
+import { HistoryProvider, History } from '@/components/history';
 
-import { Textbox } from '@/components/textbox';
-import { WeighingTable } from '@/components/table';
-import { useWeight } from '@/hooks/use-weight';
-
-const Calc = () => {
-  const [f, setF] = useState('Ag50Ga34Yb16');
-  const [g, setG] = useState(1);
-  const weight = useWeight(f, g);
-
+const Quasicrystal = () => {
   return (
-    <div>
-      <h2 className="py-4 text-xl font-bold">準結晶</h2>
-      <div className="py-2">
-        <Textbox value={f} onChange={(e) => setF(e.target.value)}>
-          分子式
-        </Textbox>
+    <HistoryProvider>
+      <div className="space-y-8">
+        <h2 className="text-xl font-bold">準結晶</h2>
+        <Calc />
+        <History />
       </div>
-      <div className="py-2">
-        <Textbox
-          value={g}
-          onChange={(e) => setG(parseFloat(e.target.value))}
-          type="number"
-        >
-          合計量（g）
-        </Textbox>
-      </div>
-      <div className="py-4">
-        <WeighingTable data={weight} />
-      </div>
-    </div>
+    </HistoryProvider>
   );
 };
 
-export default Calc;
+export default Quasicrystal;

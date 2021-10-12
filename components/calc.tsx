@@ -1,23 +1,25 @@
 import { useState } from 'react';
-import Link from 'next/link';
-
 import { Textbox } from '@/components/textbox';
 import { WeighingTable } from '@/components/table';
+import { useHistory } from '@/components/history';
 import { useWeight } from '@/hooks/use-weight';
 
-const Calc = () => {
+export const Calc = () => {
   const [f, setF] = useState('Ag50Ga34Yb16');
   const [g, setG] = useState(1);
   const weight = useWeight(f, g);
-
+  const { key, value, setValue } = useHistory();
+  const saveData = () => {
+    const newValue = [...value, weight];
+    setValue(newValue);
+    localStorage.setItem(key, JSON.stringify(newValue));
+  };
   return (
-    <div>
-      <div className="py-2">
+    <>
+      <div className="space-y-2">
         <Textbox value={f} onChange={(e) => setF(e.target.value)}>
           分子式
         </Textbox>
-      </div>
-      <div className="py-2">
         <Textbox
           value={g}
           onChange={(e) => setG(parseFloat(e.target.value))}
@@ -26,16 +28,15 @@ const Calc = () => {
           合計量（g）
         </Textbox>
       </div>
-      <div className="py-4">
+      <div>
         <WeighingTable data={weight} />
+        <button
+          className="inline-block text-white font-bold bg-blue-500 px-4 py-1 rounded-full active:bg-blue-600"
+          onClick={saveData}
+        >
+          Save data
+        </button>
       </div>
-      <div className="pt-16">
-        <Link href="/quasicrystal">
-          <a className="text-underline">準結晶</a>
-        </Link>
-      </div>
-    </div>
+    </>
   );
 };
-
-export default Calc;

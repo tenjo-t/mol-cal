@@ -11,7 +11,7 @@ export const Textbox = ({
   onChange: ChangeEventHandler<HTMLInputElement>;
   type?: 'text' | 'number';
 }>) => (
-  <label>
+  <label className="block">
     {children}
     <input
       value={value}

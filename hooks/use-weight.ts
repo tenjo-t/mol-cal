@@ -2,19 +2,20 @@ import { parse, calcWeight } from '@/utils/molcal';
 
 type AtomWeighList = AtomWeigh[];
 
-type AtomWeigh = {
+export type AtomWeigh = {
   symbol: string;
   rate: number;
   gMol: number;
   g: number;
 };
 
-type TotalWeight = {
+export type TotalWeight = {
   gMol: number;
   g: number;
 };
 
 export type WeightData = {
+  formula: string;
   atoms: AtomWeighList;
   tot: TotalWeight;
 };
@@ -33,6 +34,7 @@ export const useWeight = (formula: string, gram: number): WeightData => {
   const totG = result.reduce((acc, cur) => acc + cur.g, 0);
 
   return {
+    formula,
     atoms: result,
     tot: {
       gMol: totGMol,
