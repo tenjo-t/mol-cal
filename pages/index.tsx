@@ -6,7 +6,7 @@ import { WeighingTable } from '@/components/table';
 import { useWeight } from '@/hooks/use-weight';
 
 const Calc = () => {
-  const [f, setF] = useState('Ag50Ga34Yb16');
+  const [f, setF] = useState('BaTiO3');
   const [g, setG] = useState(1);
   const weight = useWeight(f, g);
 
@@ -14,7 +14,7 @@ const Calc = () => {
     <div>
       <div className="py-2">
         <Textbox value={f} onChange={(e) => setF(e.target.value)}>
-          分子式
+          化学式
         </Textbox>
       </div>
       <div className="py-2">

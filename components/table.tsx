@@ -15,7 +15,7 @@ export const WeighingTable = ({ data }: { data: WeightData }) => {
           <th className="px-4 py-1 ">rate</th>
           <th className="px-4 py-1">g/mol</th>
           <th className="px-4 py-1">g</th>
-          <th className="px-4 py-1">Recal</th>
+          <th className="px-4 py-1">calc</th>
         </tr>
       </thead>
       <tbody>

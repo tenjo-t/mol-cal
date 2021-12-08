@@ -5,20 +5,17 @@ import { useHistory } from '@/components/history';
 import { useWeight } from '@/hooks/use-weight';
 
 export const Calc = () => {
-  const [f, setF] = useState('Ag50Ga34Yb16');
+  const [f, setF] = useState('Au49Al34Yb17');
   const [g, setG] = useState(1);
   const weight = useWeight(f, g);
-  const { key, value, setValue } = useHistory();
-  const saveData = () => {
-    const newValue = [...value, weight];
-    setValue(newValue);
-    localStorage.setItem(key, JSON.stringify(newValue));
-  };
+  const { value, setValue } = useHistory();
+  const saveData = () => setValue([weight, ...value]);
+
   return (
     <>
       <div className="space-y-2">
         <Textbox value={f} onChange={(e) => setF(e.target.value)}>
-          分子式
+          化学式
         </Textbox>
         <Textbox
           value={g}

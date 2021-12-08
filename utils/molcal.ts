@@ -5,6 +5,7 @@ type AtomRate = {
 };
 
 export function parse(formula: string) {
+  // TODO: ReDoSについて考える
   const regPar = /\((.+)\)(\d+\.?\d*)/g;
   const regElm = /([A-Z][a-z]?)(\d*\.?\d*)/g;
   let result: AtomRate = {};
@@ -18,7 +19,7 @@ export function parse(formula: string) {
   }
 
   const noParFormula = formula.replaceAll(regPar, '');
-  for (const [parFormula, value, ..._] of formula.matchAll(regPar)) {
+  for (const [_, parFormula, value] of formula.matchAll(regPar)) {
     const parseResult = parse(parFormula);
     for (const elm in parseResult) {
       setValue(elm, parseResult[elm] * parseFloat(value));

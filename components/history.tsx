@@ -4,23 +4,37 @@ import type { WeightData } from '@/hooks/use-weight';
 import { WeighingTable } from '@/components/table';
 
 type HistoryContextData = {
-  key: string;
   value: WeightData[];
   setValue: (v: WeightData[]) => void;
 };
 
-const { parse } = JSON;
+const { parse, stringify } = JSON;
 
 const HistoryContext = createContext<HistoryContextData>({
-  key: 'qc-history',
   value: [],
   setValue: () => {},
 });
 
 export const HistoryProvider = ({ children }: { children: ReactNode }) => {
-  const [value, setValue] = useState<WeightData[]>([]);
+  const [list, setList] = useState<WeightData[]>([]);
+  useEffect(() => {
+    if (localStorage.getItem('qc-history')) {
+      setList(parse(localStorage.getItem('qc-history')!) as WeightData[]);
+    } else {
+      localStorage.setItem('qc-history', '[]');
+      setList([]);
+    }
+  }, [setList]);
+
+  const setValue = (l: WeightData[]) => {
+    if (list === l) return;
+
+    localStorage.setItem('qc-history', stringify(l));
+    setList(l);
+  };
+
   return (
-    <HistoryContext.Provider value={{ key: 'qc-history', value, setValue }}>
+    <HistoryContext.Provider value={{ value: list, setValue }}>
       {children}
     </HistoryContext.Provider>
   );
@@ -28,48 +42,37 @@ export const HistoryProvider = ({ children }: { children: ReactNode }) => {
 
 export const useHistory = () => useContext(HistoryContext);
 
-export const History = () => {
-  const { key, value, setValue } = useHistory();
+export const History = () => (
+  <div>
+    <h3 className="font-bold">履歴</h3>
+    <Tables />
+  </div>
+);
 
-  useEffect(() => {
-    if (localStorage.getItem(key)) {
-      setValue(parse(localStorage.getItem(key)!) as WeightData[]);
-    } else {
-      localStorage.setItem(key, '[]');
-      setValue([]);
-    }
-  }, [key]);
-
-  return (
-    <div>
-      <h3 className="font-bold">履歴</h3>
-      {value && <Tables data={value}></Tables>}
-    </div>
-  );
-};
-
-const Tables = (props: { data: WeightData[] }) => {
+const Tables = () => {
   const { value, setValue } = useHistory();
 
   return (
-    <div>
-      {props.data.map((d, i) => (
-        <div key={d.formula} className="py-2">
-          <h3>
-            {d.formula}
-            <button
-              className="inline-block ml-4 text-white bg-red-500 px-1.5 py-px leading-none rounded-full focus:outline-none active:bg-red-700"
-              type="button"
-              onClick={() => {
-                setValue([...value.slice(0, i), ...value.slice(i + 1)]);
-              }}
-            >
-              X
-            </button>
-          </h3>
-          <WeighingTable data={d}></WeighingTable>
-        </div>
-      ))}
-    </div>
+    value && (
+      <div>
+        {value.map((d, i) => (
+          <details key={d.formula} className="py-2">
+            <summary>
+              {d.formula}
+              <button
+                className="inline-block ml-4 text-white bg-red-500 px-1.5 py-px leading-none rounded-full focus:outline-none active:bg-red-700"
+                type="button"
+                onClick={() => {
+                  setValue([...value.slice(0, i), ...value.slice(i + 1)]);
+                }}
+              >
+                X
+              </button>
+            </summary>
+            <WeighingTable data={d}></WeighingTable>
+          </details>
+        ))}
+      </div>
+    )
   );
 };
