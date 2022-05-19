@@ -1,0 +1,1 @@
+self.__BUILD_MANIFEST={__rewrites:{beforeFiles:[],afterFiles:[],fallback:[]},"/":["static/chunks/pages/index-ec8b187355b4bd82.js"],"/_error":["static/chunks/pages/_error-b266d907b5647ddf.js"],"/quasicrystal":["static/chunks/pages/quasicrystal-9dda1af00acac340.js"],sortedPages:["/","/_app","/_error","/quasicrystal"]},self.__BUILD_MANIFEST_CB&&self.__BUILD_MANIFEST_CB();
