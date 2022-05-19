@@ -14,13 +14,18 @@ export const Calc = () => {
   return (
     <>
       <div className="space-y-2">
-        <Textbox value={f} onChange={(e) => setF(e.target.value)}>
+        <Textbox
+          value={f}
+          onChange={(e) => setF(e.target.value)}
+          className="w-80"
+        >
           化学式
         </Textbox>
         <Textbox
           value={g}
           onChange={(e) => setG(parseFloat(e.target.value))}
           type="number"
+          className="w-32"
         >
           合計量（g）
         </Textbox>

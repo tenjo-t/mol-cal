@@ -3,7 +3,7 @@ import Head from 'next/head';
 import type { Props } from '@/utils/props';
 
 export const Layout = ({ children }: Props) => (
-  <div className="text-gray-800 bg-gray-100">
+  <div>
     <Head>
       <title>式量計算機（仮）</title>
     </Head>
