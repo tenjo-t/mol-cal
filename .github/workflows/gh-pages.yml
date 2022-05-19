@@ -14,20 +14,21 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: 16.x
+          node-version: '16'
+          chace: 'pnpm'
 
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: pnpm i --frozen-lockfile
 
       - name: Build Next.js app
-        run: yarn build
+        run: pnpm build
         env:
           URL_PREFIX: mol-cal
 
       - name: Export Next.js app
-        run: yarn export
+        run: pnpm export
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
